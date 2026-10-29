@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shiva Nallakatta</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Shiva Nallakatta, Senior Data Engineer: cloud data platforms, lakehouses, Databricks, Azure, Spark.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single column, sections stacked; hero carries a bronze→silver→gold pipeline strip as the signature. */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --ink:#0e1a2b; --muted:#566273; --line:#d8dee6;
+  --accent:#1f4fd8; --accent-soft:#e3eafc; --signal:#b67600; --signal-soft:#fbefd6;
+  --bronze:#a8683a; --silver:#8a96a6; --gold:#c39a1c;
+  --f-display:"Archivo", "Helvetica Neue", Arial, sans-serif;
+  --f-body:"IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --max:1080px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b1220; --surface:#121b2c; --ink:#e7edf5; --muted:#9aa7b8; --line:#243149;
+  --accent:#7ea2ff; --accent-soft:#1a2a4d; --signal:#f0b941; --signal-soft:#3a2d12;
+  --bronze:#d08b58; --silver:#aab5c4; --gold:#e6c04c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b1220; --surface:#121b2c; --ink:#e7edf5; --muted:#9aa7b8; --line:#243149;
+  --accent:#7ea2ff; --accent-soft:#1a2a4d; --signal:#f0b941; --signal-soft:#3a2d12;
+  --bronze:#d08b58; --silver:#aab5c4; --gold:#e6c04c; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 var(--f-body);}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+header.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px}
+.brand{font:700 18px var(--f-display);font-stretch:110%;color:var(--ink);text-decoration:none;letter-spacing:-.01em}
+.brand span{color:var(--accent)}
+.nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--muted);text-decoration:none;font-size:14px;font-weight:500}
+.nav ul a:hover{color:var(--ink)}
+.menu-btn{display:none;background:none;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:500 14px var(--f-body);padding:6px 10px;cursor:pointer}
+@media (max-width:760px){
+  .menu-btn{display:block}
+  .nav ul{position:absolute;top:60px;left:0;right:0;flex-direction:column;gap:0;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 12px max(16px,env(safe-area-inset-left,0px))}
+  .nav ul a{display:block;padding:10px 0}
+  .nav ul[data-open="false"]{display:none}
+}
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+.eyebrow{font:500 12px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--signal)}
+h1,h2,h3{font-family:var(--f-display);letter-spacing:-.02em;margin:0;text-wrap:balance}
+h2{font-size:clamp(28px,4vw,38px);font-weight:750;font-stretch:108%;margin-top:6px}
+h3{font-size:19px;font-weight:700}
+.lead{color:var(--muted);max-width:64ch;margin:14px 0 0}
+
+/* Hero */
+.hero{padding-block:72px 56px}
+.loc{display:inline-flex;gap:8px;align-items:center;font:500 13px var(--f-mono);color:var(--muted);border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:5px 12px}
+.loc i{width:8px;height:8px;border-radius:50%;background:#2fa86b;display:inline-block}
+.hero h1{font-size:clamp(40px,7.4vw,84px);font-weight:800;font-stretch:115%;line-height:.98;margin-top:22px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p.tag{font-size:clamp(17px,2.1vw,20px);max-width:58ch;color:var(--muted);margin:22px 0 0}
+.hero p.tag b{color:var(--ink);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px;padding:0;list-style:none}
+.chips li{font:500 13px var(--f-mono);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 10px}
+.ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px var(--f-body);text-decoration:none;border-radius:8px;padding:11px 18px;border:1px solid var(--accent)}
+.btn.primary{background:var(--accent);color:var(--surface)}
+.btn.ghost{color:var(--accent);background:transparent}
+.btn:focus-visible,.filter:focus-visible,.menu-btn:focus-visible,a:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
+
+.pipeline{margin-top:48px;display:grid;grid-template-columns:repeat(5,auto);align-items:center;gap:10px;justify-content:start;overflow-x:auto;padding-bottom:4px}
+.stage{display:grid;gap:2px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 14px;min-width:150px}
+.stage b{font:600 13px var(--f-mono);display:flex;align-items:center;gap:8px}
+.stage b i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.stage span{font-size:13px;color:var(--muted)}
+.arrow{font:500 16px var(--f-mono);color:var(--muted)}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:40px;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.stat{padding:20px 22px;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font:800 clamp(26px,3.4vw,36px) var(--f-display);font-stretch:112%;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px;margin-top:22px}
+.about-grid p{margin:0 0 14px;max-width:62ch}
+.focus{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.focus li{border-left:3px solid var(--accent);padding:2px 0 2px 14px}
+.focus li b{display:block;font-size:15px}
+.focus li span{font-size:14px;color:var(--muted)}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr}}
+
+/* Experience timeline */
+.timeline{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:0}
+.role{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:24px 0;border-top:1px solid var(--line)}
+.role:first-child{border-top:none}
+.when{font:500 13px/1.5 var(--f-mono);color:var(--muted)}
+.when .now{display:inline-block;margin-top:6px;font-size:11px;background:var(--signal-soft);color:var(--signal);border-radius:4px;padding:1px 6px}
+.role h3 small{display:block;font:500 15px var(--f-body);color:var(--muted);margin-top:4px;letter-spacing:0}
+.role ul{margin:12px 0 0;padding-left:18px}
+.role li{margin:5px 0;max-width:72ch}
+.role li::marker{color:var(--accent)}
+@media (max-width:640px){.role{grid-template-columns:1fr;gap:6px}}
+
+/* Projects */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.filter{font:500 13px var(--f-mono);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:6px 14px;cursor:pointer}
+.filter[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;gap:10px;align-content:start;min-width:0}
+.card .metric{font:700 13px var(--f-mono);color:var(--signal);background:var(--signal-soft);border-radius:4px;padding:2px 8px;justify-self:start}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:4px 0 0;padding:0}
+.tags li{font:500 12px var(--f-mono);color:var(--accent);background:var(--accent-soft);border-radius:4px;padding:2px 7px}
+.where{font:500 12px var(--f-mono);color:var(--muted)}
+
+/* Skills + education */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.skill h3{font-size:16px}
+.skill p{margin:8px 0 0;color:var(--muted);font-size:15px}
+.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}
+.edu div{border-top:3px solid var(--ink);padding-top:12px}
+.edu b{display:block;font-family:var(--f-display);font-size:18px}
+.edu span{color:var(--muted);font-size:15px}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;margin-top:22px}
+.contact dl{margin:0;display:grid;gap:14px}
+.contact dt{font:500 12px var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.contact dd{margin:2px 0 0;font-size:17px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.copy{font:500 12px var(--f-mono);background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:2px 8px;cursor:pointer}
+.note{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.note p{margin:0 0 10px;color:var(--muted)}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Shiva <span>Nallakatta</span></a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navList">Menu</button>
+    <ul id="navList" data-open="false">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <span class="loc"><i aria-hidden="true"></i>Seattle, WA · Open to remote and hybrid</span>
+      <h1>Senior Data Engineer.</h1>
+      <p class="tag">I build cloud data platforms that turn high-volume, messy data into trusted analytics, from <b>near-petabyte Azure pipelines at Microsoft</b> to a <b>multi-carrier IoT SIM lakehouse</b> at Simetric.</p>
+      <ul class="chips" aria-label="Core skills">
+        <li>Databricks</li><li>Unity Catalog</li><li>Spark · PySpark</li><li>Azure Data Factory</li><li>Azure Synapse</li><li>Kusto (Azure Data Explorer)</li><li>Cosmos DB</li><li>Airflow</li><li>Event Hubs</li><li>SQL</li><li>Microsoft Fabric</li><li>Power BI</li>
+      </ul>
+      <div class="ctas">
+        <a class="btn primary" href="#projects">View my work →</a>
+        <a class="btn ghost" href="https://www.linkedin.com/in/shiva-nallakatta" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+
+      <div class="pipeline" aria-label="How I structure data: raw sources flow through bronze, silver and gold layers to analytics">
+        <div class="stage" style="max-width:300px"><b>Sources</b><span>SQL Server · Oracle · DB2 · Siebel · Cosmos DB · Kusto · REST APIs · webhooks · SFTP · event streams</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="stage"><b><i style="background:var(--bronze)"></i>Bronze</b><span>Raw, as received</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="stage"><b><i style="background:var(--silver)"></i>Silver → <i style="background:var(--gold)"></i>Gold</b><span>Cleaned, modeled, business-ready</span></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>20+</b><span>Years in data engineering</span></div>
+        <div class="stat"><b>Near-PB</b><span>Data processed in Azure pipelines I built</span></div>
+        <div class="stat"><b>4.5M+</b><span>Azure customers served monthly by my data layers</span></div>
+        <div class="stat"><b>2–3%</b><span>Annual Azure revenue gain from my models</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="eyebrow">About</div>
+      <h2>Data platforms people can trust</h2>
+      <div class="about-grid">
+        <div>
+          <p>I have spent more than 20 years building data platforms, including more than seven years as a Senior Data Engineer at Microsoft. There I architected near-petabyte data services for Azure Commerce, kept critical financial data streams above 99.9% availability, and maintained 100% SOX compliance across five cloud environments, including secure government clouds.</p>
+          <p>Today at Simetric, an IoT connectivity platform, I lead the move from SQL Server to a Databricks and open-source Unity Catalog lakehouse. I design ingestion from dozens of carrier connectivity platforms, each with its own schema and delivery method.</p>
+        </div>
+        <ul class="focus">
+          <li><b>Lakehouse architecture</b><span>Bronze, silver and gold layers on Databricks, Delta and Unity Catalog</span></li>
+          <li><b>Batch and event-driven ingestion</b><span>Azure Data Factory, Airflow on AKS, Azure Event Hubs, APIs, webhooks, SFTP</span></li>
+          <li><b>Migration you can prove</b><span>Incremental loads, validation and end-to-end reconciliation</span></li>
+          <li><b>Cost and reliability</b><span>Monitoring, data quality tests and cost-aware design</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="eyebrow">Experience</div>
+      <h2>Where I've built</h2>
+      <ol class="timeline">
+        <li class="role">
+          <div class="when">Sep 2025 – Present<br><span class="now">Current</span></div>
+          <div>
+            <h3>Simetric IoT<small>Senior Software Engineer (Data)</small></h3>
+            <ul>
+              <li>Lead the migration of terabyte-scale IoT SIM data from SQL Server to OSS Unity Catalog and Databricks, with incremental loads and full reconciliation.</li>
+              <li>Designed separate batch (Airflow on AKS, ~98% of SIMs) and event-driven (Azure Event Hubs, ~2% of SIMs) ingestion paths into one lakehouse.</li>
+              <li>Built a metadata-driven framework that handles each carrier platform's schema and schema changes through configuration, not code.</li>
+              <li>Designed per-customer scale-out with isolated storage, and a cost model for real-time usage on a shared Event Hub.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="role">
+          <div class="when">Jul 2017 – Feb 2025</div>
+          <div>
+            <h3>Microsoft<small>Senior Software Engineer (Data)</small></h3>
+            <ul>
+              <li>Architected Azure Data Preprocessing Services for near-petabyte workloads with sub-2-hour latency.</li>
+              <li>Built terabyte-scale Azure data pipelines with Azure Data Factory, Synapse, Databricks, Fabric, Spark, Scala and PySpark.</li>
+              <li>Built Credit Adjustment and Bring Your Own License models that improved Azure revenue by 2–3% annually.</li>
+              <li>Led remediation of 300+ pipeline vulnerabilities in 3 weeks during the Midnight Blizzard incident using Managed Identity.</li>
+              <li>Owned data layers behind Azure Cost Management, serving 4.5M+ customers a month.</li>
+              <li>Built GitHub Copilot agents that sped up pipeline development by about 40%.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="role">
+          <div class="when">Feb 2013 – Jul 2017</div>
+          <div>
+            <h3>Microsoft, via Covant Solutions<small>Software Engineer (Data)</small></h3>
+            <ul>
+              <li>Built Power BI dashboards and data marts on Bing Search, Windows 10 and MSN data.</li>
+              <li>Tuned a 14 TB database, reducing downtime by about 30%, and migrated SQL Server to Azure SQL with ADF.</li>
+              <li>Led an offshore team and introduced Git and Jenkins CI/CD, speeding delivery by about 60%.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="role">
+          <div class="when">May 2010 – Feb 2013</div>
+          <div>
+            <h3>Microsoft, via Cognizant<small>Software Engineer (Data)</small></h3>
+            <ul>
+              <li>Designed dimensional models that sped up queries by about 50%, and an ETL orchestration engine that cut incidents by about 40%.</li>
+            </ul>
+          </div>
+        </li>
+        <li class="role">
+          <div class="when">Oct 2003 – May 2010</div>
+          <div>
+            <h3>IT America · Wipro<small>Software Engineer (Data)</small></h3>
+            <ul>
+              <li>Built enterprise data warehouses, SSIS pipelines, SSAS cubes and SSRS reporting across Siebel, Oracle, DB2 and SQL Server.</li>
+            </ul>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="eyebrow">Selected work</div>
+      <h2>Projects and results</h2>
+      <p class="lead">Systems I designed or led, with the numbers behind them.</p>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button class="filter" aria-pressed="true" data-f="all">All</button>
+        <button class="filter" aria-pressed="false" data-f="lakehouse">Lakehouse</button>
+        <button class="filter" aria-pressed="false" data-f="streaming">Streaming</button>
+        <button class="filter" aria-pressed="false" data-f="cost">Cost and revenue</button>
+        <button class="filter" aria-pressed="false" data-f="reliability">Reliability and security</button>
+        <button class="filter" aria-pressed="false" data-f="automation">Automation</button>
+      </div>
+      <div class="cards" id="cards">
+        <article class="card" data-cat="lakehouse">
+          <span class="where">Simetric</span>
+          <h3>SQL Server to lakehouse migration</h3>
+          <span class="metric">Terabyte scale · many carriers</span>
+          <p>Moved IoT usage data to Databricks and OSS Unity Catalog with bronze, silver and gold layers, proven by end-to-end reconciliation.</p>
+          <ul class="tags"><li>Databricks</li><li>Unity Catalog</li><li>Delta</li><li>PySpark</li></ul>
+        </article>
+        <article class="card" data-cat="streaming lakehouse">
+          <span class="where">Simetric</span>
+          <h3>Batch and event-driven ingestion</h3>
+          <span class="metric">98% batch · 2% real-time</span>
+          <p>Two paths sized for how carriers deliver data: Airflow on AKS for bulk files and APIs, and Event Hubs for real-time events.</p>
+          <ul class="tags"><li>Airflow</li><li>AKS</li><li>Event Hubs</li><li>Event Grid</li></ul>
+        </article>
+        <article class="card" data-cat="automation lakehouse">
+          <span class="where">Simetric</span>
+          <h3>Metadata-driven multi-carrier ingestion</h3>
+          <span class="metric">Schema changes without code</span>
+          <p>Each carrier platform's schema, mappings and rules live in metadata, so new sources and schema changes are configuration work.</p>
+          <ul class="tags"><li>Metadata</li><li>Schema evolution</li><li>Python</li></ul>
+        </article>
+        <article class="card" data-cat="cost streaming">
+          <span class="where">Simetric</span>
+          <h3>Per-customer scale-out and cost model</h3>
+          <span class="metric">100% cost allocated</span>
+          <p>Isolated storage per B2B customer, and a usage-based model that splits shared real-time costs fairly by volume and peak traffic.</p>
+          <ul class="tags"><li>Multi-tenant</li><li>Event Hubs</li><li>FinOps</li></ul>
+        </article>
+        <article class="card" data-cat="cost">
+          <span class="where">Microsoft</span>
+          <h3>Credit Adjustment and BYOL models</h3>
+          <span class="metric">+2–3% Azure revenue a year</span>
+          <p>Tracked service credits and expiring on-premises licenses so Azure could adjust credits accurately and reach customers before renewal.</p>
+          <ul class="tags"><li>Azure Synapse</li><li>Spark</li><li>Commerce data</li></ul>
+        </article>
+        <article class="card" data-cat="lakehouse">
+          <span class="where">Microsoft</span>
+          <h3>Azure Data Preprocessing Services</h3>
+          <span class="metric">Near-petabyte · &lt;2h latency</span>
+          <p>Ingestion and transformation platform for Azure commerce data across five cloud environments, with zero Sev2 incidents.</p>
+          <ul class="tags"><li>ADF</li><li>Synapse</li><li>Cosmos DB</li><li>Data Explorer</li></ul>
+        </article>
+        <article class="card" data-cat="reliability">
+          <span class="where">Microsoft</span>
+          <h3>Midnight Blizzard security remediation</h3>
+          <span class="metric">300+ fixes in 3 weeks</span>
+          <p>Replaced legacy pipeline credentials with Managed Identity across production and secure government clouds.</p>
+          <ul class="tags"><li>Managed Identity</li><li>Security</li><li>SOX</li></ul>
+        </article>
+        <article class="card" data-cat="automation">
+          <span class="where">Microsoft</span>
+          <h3>Automated data onboarding</h3>
+          <span class="metric">5 days → under 5 minutes</span>
+          <p>A metadata-driven onboarding framework that removed manual steps and raised engineering productivity by about 90%.</p>
+          <ul class="tags"><li>Metadata</li><li>Azure DevOps</li><li>Automation</li></ul>
+        </article>
+        <article class="card" data-cat="reliability">
+          <span class="where">Microsoft</span>
+          <h3>Monitoring and data validation</h3>
+          <span class="metric">80% fewer incidents</span>
+          <p>Validation tests in deployment pipelines plus alerting that caught anomalies before customers did.</p>
+          <ul class="tags"><li>Monitoring</li><li>Data quality</li><li>CI/CD</li></ul>
+        </article>
+        <article class="card" data-cat="automation">
+          <span class="where">Microsoft</span>
+          <h3>AI-assisted pipeline development</h3>
+          <span class="metric">~40% faster development</span>
+          <p>Copilot-based agents for code generation, documentation retrieval and work-item search for data engineers.</p>
+          <ul class="tags"><li>GitHub Copilot</li><li>Claude</li><li>Azure DevOps</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <div class="eyebrow">Skills</div>
+      <h2>Toolkit</h2>
+      <div class="skills">
+        <div class="skill"><h3>Languages</h3><p>SQL, Python, PySpark, Scala, KQL, Scope, C#, PowerShell, Postgres</p></div>
+        <div class="skill"><h3>Lakehouse and big data</h3><p>Databricks, Unity Catalog, Delta Lake, Apache Spark, Microsoft Fabric, Azure Synapse, Cosmos</p></div>
+        <div class="skill"><h3>Cloud and streaming</h3><p>Azure Data Factory, Event Hubs, Event Grid, AKS, ADLS, Key Vault, Data Explorer, Redis</p></div>
+        <div class="skill"><h3>Orchestration and DevOps</h3><p>Apache Airflow, Azure DevOps, Git, Jenkins, EV2, ARM templates</p></div>
+        <div class="skill"><h3>BI and modeling</h3><p>Power BI, Tableau, SSAS, SSRS, SSIS, QlikView, dimensional modeling</p></div>
+        <div class="skill"><h3>Data sources integrated</h3><p>SQL Server, Azure SQL, Oracle, DB2, Siebel, PostgreSQL, Cosmos DB, Azure Data Explorer (Kusto), Event Hubs streams, REST APIs, webhooks, SFTP files, blob-storage callbacks</p></div>
+        <div class="skill"><h3>Domains</h3><p>Cloud billing and commerce, cost management, licensing, search and app telemetry (Bing, Windows, MSN), Kubernetes usage, IoT SIM connectivity across carriers</p></div>
+        <div class="skill"><h3>AI tools</h3><p>GitHub Copilot agents and Claude for design, code, testing and documentation</p></div>
+      </div>
+      <div class="eyebrow" style="margin-top:48px">Education</div>
+      <div class="edu">
+        <div><b>M.Sc. Computer Science</b><span>Maharshi Dayanand University, India</span></div>
+        <div><b>B.C.A. Computer Applications</b><span>MCRP Vishwavidyalaya, India</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="border-bottom:none">
+    <div class="wrap">
+      <div class="eyebrow">Contact</div>
+      <h2>Let's talk data</h2>
+      <div class="contact">
+        <dl>
+          <div><dt>Email</dt><dd><span id="email">nallakatta.shival@gmail.com</span><button class="copy" data-copy="email">Copy</button></dd></div>
+          <div><dt>Phone</dt><dd><span id="phone">732-881-8335</span><button class="copy" data-copy="phone">Copy</button></dd></div>
+          <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/shiva-nallakatta" target="_blank" rel="noopener">linkedin.com/in/shiva-nallakatta</a></dd></div>
+          <div><dt>Location</dt><dd>Seattle, WA · open to remote and hybrid</dd></div>
+        </dl>
+        <div class="note">
+          <p>I'm open to Principal, Senior and Lead Data Engineer roles and contract work in lakehouse architecture, data migration and data platform modernization.</p>
+          <p>The quickest way to reach me is email or LinkedIn. I usually reply within a day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">© 2026 Shiva Nallakatta · Senior Data Engineer</div></footer>
+
+<script>
+const btn=document.getElementById('menuBtn'), list=document.getElementById('navList');
+btn.addEventListener('click',()=>{const open=list.dataset.open!=='true';list.dataset.open=String(open);btn.setAttribute('aria-expanded',String(open));});
+list.addEventListener('click',e=>{if(e.target.tagName==='A'&&matchMedia('(max-width:760px)').matches){list.dataset.open='false';btn.setAttribute('aria-expanded','false');}});
+document.querySelectorAll('.filter').forEach(f=>f.addEventListener('click',()=>{
+  document.querySelectorAll('.filter').forEach(x=>x.setAttribute('aria-pressed',String(x===f)));
+  const k=f.dataset.f;
+  document.querySelectorAll('#cards .card').forEach(c=>{c.hidden = !(k==='all'||c.dataset.cat.split(' ').includes(k));});
+}));
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',async()=>{
+  const el=document.getElementById(b.dataset.copy);
+  try{await navigator.clipboard.writeText(el.textContent);b.textContent='Copied';}
+  catch(e){const r=document.createRange();r.selectNodeContents(el);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Selected';}
+  setTimeout(()=>b.textContent='Copy',1500);
+}));
+</script>
+
+</body>
+</html>
