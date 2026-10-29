@@ -71,8 +71,10 @@ h3{font-size:19px;font-weight:700}
 .btn.ghost{color:var(--accent);background:transparent}
 .btn:focus-visible,.filter:focus-visible,.menu-btn:focus-visible,a:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
 
-.pipeline{margin-top:48px;display:grid;grid-template-columns:repeat(5,auto);align-items:center;gap:10px;justify-content:start;overflow-x:auto;padding-bottom:4px}
-.stage{display:grid;gap:2px;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:10px 14px;min-width:150px}
+.pipeline{margin-top:48px;display:grid;grid-template-columns:minmax(0,1.6fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);align-items:stretch;gap:8px}
+.stage{display:grid;gap:4px;align-content:start;border:1px solid var(--line);border-top:4px solid var(--layer,var(--line));background:var(--surface);border-radius:8px;padding:10px 12px;min-width:0}
+.arrow{align-self:center}
+@media (max-width:860px){.pipeline{grid-template-columns:1fr}.arrow{justify-self:center;transform:rotate(90deg)}}
 .stage b{font:600 13px var(--f-mono);display:flex;align-items:center;gap:8px}
 .stage b i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .stage span{font-size:13px;color:var(--muted)}
@@ -173,11 +175,15 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
 
       <div class="eyebrow" style="margin-top:48px">Medallion architecture</div>
       <div class="pipeline" style="margin-top:10px" aria-label="Medallion architecture: raw sources flow through bronze, silver and gold layers to analytics">
-        <div class="stage" style="max-width:300px"><b>Sources</b><span>SQL Server · Oracle · DB2 · Siebel · Cosmos DB · Kusto · ADLS · REST APIs · webhooks · SFTP · event streams</span></div>
+        <div class="stage"><b>Sources</b><span>SQL Server · Oracle · DB2 · Siebel · Cosmos DB · Kusto · ADLS · REST APIs · webhooks · SFTP · event streams</span></div>
         <span class="arrow" aria-hidden="true">→</span>
-        <div class="stage"><b><i style="background:var(--bronze)"></i>Bronze</b><span>Raw, as received</span></div>
+        <div class="stage" style="--layer:var(--bronze)"><b><i style="background:var(--bronze)"></i>Bronze</b><span>Raw data as received, kept for replay and audit</span></div>
         <span class="arrow" aria-hidden="true">→</span>
-        <div class="stage"><b><i style="background:var(--silver)"></i>Silver → <i style="background:var(--gold)"></i>Gold</b><span>Cleaned, modeled, business-ready</span></div>
+        <div class="stage" style="--layer:var(--silver)"><b><i style="background:var(--silver)"></i>Silver</b><span>Cleaned, deduplicated, validated and normalized</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="stage" style="--layer:var(--gold)"><b><i style="background:var(--gold)"></i>Gold</b><span>Business-ready models and aggregates</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="stage" style="--layer:var(--accent)"><b>Consumers</b><span>Power BI · APIs · analytics · ML</span></div>
       </div>
 
       <div class="stats">
