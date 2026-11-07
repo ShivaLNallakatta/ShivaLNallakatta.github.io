@@ -224,8 +224,8 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
           <div>
             <h3>Simetric IoT<small>Senior Software Engineer (Data)</small></h3>
             <ul>
-              <li>Lead the migration of terabyte-scale IoT SIM data from SQL Server to OSS Unity Catalog and Databricks, with incremental loads and full reconciliation.</li>
-              <li>Designed separate batch (Airflow on AKS, ~98% of SIMs) and event-driven (Azure Event Hubs, ~2% of SIMs) ingestion paths into one lakehouse.</li>
+              <li>Architected and led the migration of ~80M SIMs across 70+ carrier connectivity platforms (CMPs) from SQL Server to OSS Unity Catalog and Databricks, deployed to production after parallel runs and full reconciliation.</li>
+              <li>Designed separate batch (Airflow on AKS, ~98% of SIMs) and event-driven (Azure Event Hubs with Spark Structured Streaming on AKS, ~2% of SIMs) ingestion paths into one lakehouse.</li>
               <li>Built a metadata-driven framework that handles each carrier platform's schema and schema changes through configuration, not code.</li>
               <li>Designed per-customer scale-out with isolated storage, and a cost model for real-time usage on a shared Event Hub.</li>
             </ul>
@@ -240,7 +240,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
               <li>Ran data ingestion across five Azure clouds (PME, CORP, Aircapi, and the USNat and USSec sovereign air-gapped clouds), with the team consistently meeting the 99.9% availability and 24-hour Sev2 SLAs.</li>
               <li>On my latest Microsoft project, built data pipelines and analytics on Microsoft Fabric.</li>
               <li>Built terabyte-scale Azure data pipelines with Azure Data Factory, Synapse, Databricks, Fabric, Spark, Scala and PySpark.</li>
-              <li>Built Credit Adjustment and Bring Your Own License models that improved Azure revenue by 2–3% annually.</li>
+              <li>With the Azure Finance team, built a Credit Adjustment model delivering $50M a month in savings (~$600M a year) and a Bring Your Own License model generating $50M a month in revenue.</li>
               <li>Led remediation of 300+ pipeline vulnerabilities in 3 weeks during the Midnight Blizzard incident using Managed Identity.</li>
               <li>Owned data layers behind Azure Cost Management, serving 4.5M+ customers a month.</li>
               <li>Built GitHub Copilot agents that sped up pipeline development by about 40%.</li>
@@ -297,7 +297,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
         <article class="card" data-cat="lakehouse">
           <span class="where">Simetric</span>
           <h3>SQL Server to lakehouse migration</h3>
-          <span class="metric">~80M SIMs · terabyte scale</span>
+          <span class="metric">~80M SIMs · 70+ CMPs · in production</span>
           <p>Moved IoT usage data to Databricks and OSS Unity Catalog with bronze, silver and gold layers, proven by end-to-end reconciliation.</p>
           <ul class="tags"><li>Databricks</li><li>Unity Catalog</li><li>Delta</li><li>PySpark</li></ul>
         </article>
@@ -325,7 +325,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
         <article class="card" data-cat="cost">
           <span class="where">Microsoft</span>
           <h3>Credit Adjustment and BYOL models</h3>
-          <span class="metric">+2–3% Azure revenue a year</span>
+          <span class="metric">$50M/month savings · $50M/month revenue</span>
           <p>Tracked service credits and expiring on-premises licenses so Azure could adjust credits accurately and reach customers before renewal.</p>
           <ul class="tags"><li>Azure Synapse</li><li>Spark</li><li>Commerce data</li></ul>
         </article>
