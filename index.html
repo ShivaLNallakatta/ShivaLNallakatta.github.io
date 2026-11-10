@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Shiva Nallakatta</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Shiva Nallakatta, Senior Data Engineer: cloud data platforms, lakehouses, Databricks, Azure, Spark.">
+<meta name="description" content="Shiva Nallakatta, Senior Software Engineer (Data): cloud data platforms, lakehouses, Databricks, Azure, Spark.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -163,7 +163,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
   <section class="hero">
     <div class="wrap">
       <span class="loc"><i aria-hidden="true"></i>Seattle, WA · Open to remote and hybrid</span>
-      <h1>Senior Data Engineer.</h1>
+      <h1>Senior Software Engineer.</h1>
       <p class="tag">I build cloud data platforms that turn high-volume, messy data into trusted analytics, from <b>petabyte-scale Azure data platforms at Microsoft</b> to a <b>multi-carrier lakehouse for about 80 million IoT SIMs</b> at Simetric.</p>
       <ul class="chips" aria-label="Core skills">
         <li>Databricks</li><li>Unity Catalog</li><li>Spark · PySpark</li><li>Azure Data Factory</li><li>Azure Synapse</li><li>Kusto (Azure Data Explorer)</li><li>Cosmos DB</li><li>Airflow</li><li>Event Hubs</li><li>SQL</li><li>Microsoft Fabric</li><li>Power BI</li>
@@ -201,7 +201,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
       <h2>Data platforms people can trust</h2>
       <div class="about-grid">
         <div>
-          <p>I have spent more than 15 years building data platforms, including more than seven years as a Senior Data Engineer at Microsoft. There I designed and built data services for Azure Commerce that grew to petabyte scale, helped keep critical financial data streams within their 99.9% availability SLA, and maintained SOX-compliant controls across five Azure clouds (PME, CORP, Aircapi, and the USNat and USSec sovereign clouds).</p>
+          <p>I have spent more than 15 years building data platforms, including more than seven years as a Senior Software Engineer (Data) at Microsoft. There I designed and built data services for Azure Commerce that grew to petabyte scale, helped keep critical financial data streams within their 99.9% availability SLA, and maintained SOX-compliant controls across five Azure clouds (PME, CORP, Aircapi, and the USNat and USSec sovereign clouds).</p>
           <p>Today at Simetric, an IoT connectivity platform, I lead the move from SQL Server to a Databricks and open-source Unity Catalog lakehouse. I design ingestion from dozens of carrier connectivity platforms, each with its own schema and delivery method.</p>
         </div>
         <ul class="focus">
@@ -222,11 +222,14 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
         <li class="role">
           <div class="when">Sep 2025 – Present<br><span class="now">Current</span></div>
           <div>
-            <h3>Simetric IoT<small>Senior Software Engineer (Data)</small></h3>
+            <h3>Simetric<small>Senior Software Engineer (Data)</small></h3>
             <ul>
               <li>Architected and led the migration of ~80M SIMs across 70+ carrier connectivity platforms (CMPs) from SQL Server to OSS Unity Catalog and Databricks, deployed to production after parallel runs and full reconciliation.</li>
+              <li>Designed a cost-optimized platform targeting a 40% infrastructure cost reduction by retiring SQL Server licensing, routing ~98% of usage data through batch on AKS instead of streaming, and autoscaling compute with KEDA.</li>
               <li>Designed separate batch (Airflow on AKS, ~98% of SIMs) and event-driven (Azure Event Hubs with Spark Structured Streaming on AKS, ~2% of SIMs) ingestion paths into one lakehouse.</li>
+              <li>Designed the Unity Catalog lakehouse as a medallion architecture (bronze, silver, gold) on Delta Lake and ADLS, with batch and streaming data landing on a common event envelope in the same bronze tables.</li>
               <li>Built a metadata-driven framework that handles each carrier platform's schema and schema changes through configuration, not code.</li>
+              <li>Built a Python-based OCR and text-extraction pipeline for carrier PDF invoices and usage reports, using Azure AI Document Intelligence with confidence-threshold validation before loading into Unity Catalog.</li>
               <li>Designed per-customer scale-out with isolated storage, and a cost model for real-time usage on a shared Event Hub.</li>
             </ul>
           </div>
@@ -314,6 +317,20 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
           <ul class="tags"><li>Multi-tenant</li><li>Event Hubs</li><li>FinOps</li></ul>
         </article>
         <article class="card" data-cat="cost">
+          <span class="where">Simetric</span>
+          <h3>Cost-optimized open-source platform</h3>
+          <span class="metric">Targeting 40% lower infrastructure cost</span>
+          <p>Retired SQL Server licensing, sent ~98% of usage data through batch on AKS instead of streaming, and autoscaled compute with KEDA.</p>
+          <ul class="tags"><li>AKS</li><li>KEDA</li><li>Airflow</li><li>FinOps</li></ul>
+        </article>
+        <article class="card" data-cat="automation lakehouse">
+          <span class="where">Simetric</span>
+          <h3>OCR and text extraction for carrier documents</h3>
+          <span class="metric">PDF invoices → validated Unity Catalog tables</span>
+          <p>Python pipeline that extracts fields from carrier invoices and usage reports, checks confidence scores and business rules, and quarantines what fails.</p>
+          <ul class="tags"><li>Python</li><li>Azure AI Document Intelligence</li><li>OCR</li><li>Unity Catalog</li></ul>
+        </article>
+        <article class="card" data-cat="cost">
           <span class="where">Microsoft</span>
           <h3>Credit Adjustment and BYOL models</h3>
           <span class="metric">$50M/month savings · $50M/month revenue</span>
@@ -333,13 +350,6 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
           <span class="metric">300+ fixes in 3 weeks</span>
           <p>Replaced legacy pipeline credentials with Managed Identity across production and secure government clouds.</p>
           <ul class="tags"><li>Managed Identity</li><li>Security</li><li>SOX</li></ul>
-        </article>
-        <article class="card" data-cat="automation">
-          <span class="where">Microsoft</span>
-          <h3>Automated data onboarding</h3>
-          <span class="metric">5 days → under 5 minutes</span>
-          <p>A metadata-config-driven framework that replaced the legacy manual process for onboarding new pipelines and datasets to production.</p>
-          <ul class="tags"><li>Metadata</li><li>Azure DevOps</li><li>Automation</li></ul>
         </article>
         <article class="card" data-cat="reliability">
           <span class="where">Microsoft</span>
@@ -364,10 +374,11 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
       <div class="eyebrow">Skills</div>
       <h2>Toolkit</h2>
       <div class="skills">
-        <div class="skill"><h3>Languages</h3><p>SQL, Python, PySpark, Scala, KQL, Scope, C#, PowerShell, Postgres</p></div>
+        <div class="skill"><h3>Languages</h3><p>SQL, Python, PySpark, Scala, KQL, Scope, C#, PowerShell, Postgres, Bash</p></div>
         <div class="skill"><h3>Lakehouse and big data</h3><p>Databricks, Unity Catalog, Delta Lake, Apache Spark, Microsoft Fabric, Azure Synapse, Cosmos</p></div>
         <div class="skill"><h3>Cloud and streaming</h3><p>Azure Data Factory, Event Hubs, Event Grid, AKS, ADLS, Key Vault, Data Explorer, Redis</p></div>
-        <div class="skill"><h3>Orchestration and DevOps</h3><p>Apache Airflow, Azure DevOps, Git, Jenkins, EV2, ARM templates</p></div>
+        <div class="skill"><h3>Orchestration and DevOps</h3><p>Apache Airflow, Azure DevOps, Git, GitHub, Jenkins, EV2, ARM templates, KEDA, Linux</p></div>
+        <div class="skill"><h3>Python and data processing</h3><p>Pandas, NumPy, PySpark, OCR and text extraction (Azure AI Document Intelligence), error handling and recovery, JSON/JSONL, CSV, Parquet, Avro, Delta</p></div>
         <div class="skill"><h3>BI and modeling</h3><p>Power BI, Tableau, SSAS, SSRS, SSIS, QlikView, dimensional modeling</p></div>
         <div class="skill"><h3>Data sources integrated</h3><p>SQL Server, Azure SQL, Oracle, SAP, PostgreSQL, Cosmos DB, Azure Data Explorer (Kusto), Event Hubs streams, REST APIs, webhooks, SFTP files, blob-storage callbacks</p></div>
         <div class="skill"><h3>Domains</h3><p>Cloud billing and commerce, cost management, licensing, search and app telemetry (Bing, Windows, MSN), Kubernetes usage, IoT SIM connectivity across carriers</p></div>
@@ -400,7 +411,7 @@ footer{padding-block:28px 40px;color:var(--muted);font-size:14px}
     </div>
   </section>
 </main>
-<footer><div class="wrap">© 2026 Shiva Nallakatta · Senior Data Engineer</div></footer>
+<footer><div class="wrap">© 2026 Shiva Nallakatta · Senior Software Engineer</div></footer>
 
 <script>
 const btn=document.getElementById('menuBtn'), list=document.getElementById('navList');
